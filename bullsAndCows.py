@@ -1,31 +1,47 @@
 from random import randint, choice
 
+"""
+returns a number to guess
+"""
 def get_number():
-    digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] #lsit of digits to choose from
+    digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] #list of digits to choose from
     number = []     #number to guess
-    number.append(randint(1, 9))
+    number.append(randint(1, 9)) #append a random digit
     digits.remove(number[0])
 
     for i in range (0, 3):
-        #chooses one of the numbers froom list a nd removes it from the list
+        #chooses one of the numbers froom list nd removes it from the list
         number.append(choice(digits))
         digits.remove(number[i + 1])
 
     return number
 
+
+"""
+players turn
+asks for a input from player and checks if it's valid
+calls compare_number()
+returns the result of compare_number()
+"""
 def player_turn(number):
     guess = input("Your guess: ")
-    if not guess.isdigit():
+
+    if not guess.isdigit():     #checks if number
         print("Enter a number dumbass")
-    elif len(guess) != 4:
+    elif len(guess) != 4:       #checks the length
         print("Number has less or more digits")
     else:
-        return check_number(number, guess)
+        return compare_number(number, guess)
 
-
-def check_number(number, guess):
+"""
+compares the number to be guessed with number from player
+counts cows and bulls and prints the result
+returns True if numbers are equal (if bulls == 4), False otherwise
+"""
+def compare_number(number, guess):
     cows = 0
     bulls = 0
+    #checks the number
     for i in range (4):
         if int(guess[i]) in number:
             if int(guess[i]) == number[i]:
@@ -34,45 +50,39 @@ def check_number(number, guess):
                 cows += 1
 
     if not bulls == 4:
-        # print('You got it lucky bastard!')
-    # else:
         print("Cows: %d, Bulls:  %d"  % (cows, bulls))
-        # print('Cows: {0:2d} Bulls: {1:2d}'.format(cows, bulls))
     return bulls == 4
 
-
+"""
+Prints the list representing the number as a single string
+"""
 def list_as_string(number):
     print (''.join(map(str, number)))
 
 
-def test():
-    numbers = []
-    for i in range (1, 50):
-        a = []
-        a = get_number()
-        list_as_string(a)
-        numbers.append(get_number())
+"""
+game function
+calls get_number()
 
-    for l in numbers:
-        l = set(l)
-
-    for x in numbers:
-        if len(x) != 4:
-            print("FUUCK")
-        list_as_string(x)
-
+"""
 def game():
     print("Hey fucker! Got a number for you! Guess what it is!")
+    number = get_number()
+
+    list_as_string(number) #shouldn't be here!!!
+
     win = False
     ofGuesses = 0
-    number = get_number()
-    list_as_string(number)
-
     while not win:
         win = player_turn(number)
         ofGuesses += 1
     print('You done it you lucky basard! Guesses: %d' % ofGuesses)
 
+
+#
 game()
 
-# test()
+
+# TODO: CLASSSES???
+# TODO: pydoc
+# TODO: guesses
