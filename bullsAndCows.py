@@ -5,17 +5,17 @@ returns a number to guess
 """
 def get_number():
     digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] #list of digits to choose from
-    number = []     #number to guess
-    number.append(randint(1, 9)) #append a random digit
-    digits.remove(number[0])
+    a = randint(1, 9)
+    digits.remove(a)
+    number = str(a)
 
     for i in range (0, 3):
         #chooses one of the numbers froom list nd removes it from the list
-        number.append(choice(digits))
-        digits.remove(number[i + 1])
+        a = (choice(digits))
+        number += str(a)
+        digits.remove(a)
 
     return number
-
 
 """
 players turn
@@ -43,8 +43,10 @@ def compare_number(number, guess):
     bulls = 0
     #checks the number
     for i in range (4):
-        if int(guess[i]) in number:
-            if int(guess[i]) == number[i]:
+        # if int(guess[i]) in number:
+        if guess[i] in number:
+            # if int(guess[i]) == number[i]:
+            if guess[i] == number[i]:
                 bulls += 1
             else:
                 cows += 1
@@ -52,12 +54,6 @@ def compare_number(number, guess):
     if not bulls == 4:
         print("Cows: %d, Bulls:  %d"  % (cows, bulls))
     return bulls == 4
-
-"""
-Prints the list representing the number as a single string
-"""
-def list_as_string(number):
-    print (''.join(map(str, number)))
 
 
 """
@@ -69,7 +65,7 @@ def game():
     print("Hey fucker! Got a number for you! Guess what it is!")
     number = get_number()
 
-    list_as_string(number) #shouldn't be here!!!
+    print (number) '''DEBUG'''
 
     win = False
     ofGuesses = 0
@@ -86,3 +82,4 @@ game()
 # TODO: CLASSSES???
 # TODO: pydoc
 # TODO: guesses
+# TODO: map as strings
