@@ -19,16 +19,15 @@ def get_number():
 
 def player_turn(number):
     """
-    players turn,
     asks for an input from player and checks if it's valid,
     returns the result of compare_number()
     """
     guess = input("Your guess: ")
 
     if not guess.isdigit():     #checks if number
-        print("That's not a number!")
+        print("That's not a number you kinky bastard!")
     elif len(guess) != 4:       #checks the length
-        print("Number must have 4 digits, try again: ")
+        print("The number must have 4 digits, try again: ")
     else:
         return compare_number(number, guess)
 
@@ -58,7 +57,7 @@ def game():
     """
     game function
     """
-    print("Hey! Got a number for you! Guess what it is!")
+    print("Good day to you Sir! Got a fuckin number for you! Fucking guess what it is!")
     number = get_number()
 
     print (number)
@@ -68,12 +67,9 @@ def game():
     while not win:
         win = player_turn(number)
         of_guesses += 1
-    print('You done it you lucky bastard! Guesses: %d' % of_guesses)
+    print('You done it you lucky bastard! Fuckin look at you! What a clever fuck you are" And just in fuckin %d guesses' % of_guesses)
 
 
 game()
 
-# TODO: CLASSSES???
-# TODO: pydoc
 # TODO: guesses
-# TODO: map as strings
