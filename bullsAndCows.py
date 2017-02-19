@@ -4,17 +4,18 @@ by Zdenko Klain <zdenkoklain@gmail.com>
 """
 
 from random import randint, choice
+import sys
 
 
 def get_number():
     """ Returns a number to guess """
-    digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] #list of digits to choose from
-    digit = randint(1, 9) #choose first  digit
-    number = digit * 1000
+    digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]  # list of digits to choose from
+    digit = randint(1, 9)  # choose first  digit
+    number = digit
     digits.remove(digit)
-    for i in range(3): #choose and removes one of the numbers from list
+    for i in range(3):  # choose and removes one of the numbers from list
         digit = (choice(digits))
-        number += digit * pow(10, i)
+        number = number * 10 + digit
         digits.remove(digit)
     return number
 
@@ -22,15 +23,37 @@ def get_number():
 def player_turn(number):
     """
     asks for an input from player and checks if it's valid,
-    returns the result of compare_number()
+    if so, returns the result of compare_number()
     """
     guess = input("Your guess: ")
+    while not correct_input(guess):  # asks for input from player until its correct
+        guess = input("Try again: ")
+    return compare_number(number, guess)  # compares numbers
 
-    if not guess.isdigit():     #checks if number
-        print("That's not a number! Try again: ")
-        print("The number must have 4 digits, try again: ")
+
+def correct_input(number):
+    """
+    checks if user input is valid
+    """
+    if not number.isdigit():     # checks if number
+        print("That's not a number!")
+        return False
+    elif len(number) != 4:       # check length
+        print("The number must have 4 digits!")
+        return False
+    elif not check_digits(number):   # check if 4 different digits
+        print('The number must consist of 4 different digits!')
+        return False
     else:
-        return compare_number(number, guess)
+        return True
+
+
+def check_digits(number):
+    """
+    checks whether the number consists of 4 different digits
+    """
+    used_digits = set(number)   # creates set from string
+    return len(used_digits) == 4    # checks if the set has 4 elements
 
 
 def compare_number(number, guess):
@@ -49,41 +72,78 @@ def compare_number(number, guess):
             else:
                 cows += 1
 
-    if not bulls == 4:
-        print("Cows: %d, Bulls:  %d"  % (cows, bulls))
+    if bulls != 4:
+        print("Bulls: {}, Cows: {}\n".format(bulls, cows))
     return bulls == 4
 
 
 def how_good(guesses):
     """
-    returns a comment on how well the player played according to the number of guesses
+    returns a comment on how well the player played
+    (according to the number of guesses)
     """
     if guesses < 3:
         return "What sort of sorcery is this!?"
     elif guesses <= 5:
         return "Terrific!"
     elif guesses <= 10:
-        return 'Jolly good Sir!'
+        return "Jolly good Sir!"
     elif guesses <= 15:
-        return 'Good job!'
+        return "Good job!"
     elif guesses <= 20:
-        return 'Naaaah...You can do better!'
+        return "Nice. But you can do better!"
+    elif guesses <= 30:
+        return "Oh. maan! Can\'t be that hard!"
     else:
-        return 'Emberassing'
+        return "That is rather emberassing..."
 
 
-def game():
+def wanna_play():
     """
-    creates a number to guess, calls player_turn in while loop until player guesses correcty
+    asks player whether to play again
     """
-    print("Hey! Got a number for you! Guess what it is!")
+    play_again = input('Would you like another round? (yes/no) ')
+    while True:  # asks until correct answer
+        if play_again in ('Yes', 'yes', 'y', 'YES', 'yep', 'yarp', 'aye'):
+            return True
+        elif play_again in ('No', 'no', 'n', 'nope', 'NO', 'nay'):
+            return False
+        else:
+            print('God dammit Sir, can you even type??')
+            play_again = input('Do you wish to play again???')
+
+
+def round():
+    """
+    playes one round of the game
+    """
     number = get_number()
+
+    """DEBUG YOU FUCKER"""
+    print(number)
+    """DEBUG YOU FUCKER"""
+    
+    print("Hey! Got a number for you! Guess what it is!")
     win = False
     of_guesses = 0
     while not win:
         win = player_turn(number)
         of_guesses += 1
-    print('You\'ve found it in %d guesses. %s' % (of_guesses, how_good(of_guesses)))
+    print('You\'ve found it in {} guesses. {} '.format(of_guesses, how_good(of_guesses)))
+
+
+def game():
+    """
+    plays rounds as long as the player wants to play
+    """
+    next_round = True
+    while next_round:
+        round()
+        next_round = wanna_play()
+    sys.exit()
 
 
 game()
+
+# TODO: play again
+
