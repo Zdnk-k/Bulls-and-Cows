@@ -84,15 +84,15 @@ def how_good(guesses):
     """
     if guesses < 3:
         return "What sort of sorcery is this!?"
-    elif guesses <= 5:
-        return "Terrific!"
     elif guesses <= 10:
-        return "Jolly good Sir!"
+        return "Terrific!"
     elif guesses <= 15:
-        return "Good job!"
+        return "Jolly good Sir!"
     elif guesses <= 20:
-        return "Nice. But you can do better!"
+        return "Good job!"
     elif guesses <= 30:
+        return "You can do better!"
+    elif guesses <= 40:
         return "Oh. maan! Can\'t be that hard!"
     else:
         return "That is rather emberassing..."
@@ -139,6 +139,4 @@ def game():
 
 
 game()
-
-# TODO: play again
 
