@@ -118,11 +118,6 @@ def round():
     playes one round of the game
     """
     number = get_number()
-
-    """DEBUG YOU FUCKER"""
-    print(number)
-    """DEBUG YOU FUCKER"""
-    
     print("Hey! Got a number for you! Guess what it is!")
     win = False
     of_guesses = 0
