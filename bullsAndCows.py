@@ -138,5 +138,46 @@ def game():
     sys.exit()
 
 
-game()
+def menu():
+    print("Welcome to Bulls \'n Cows game!\n")
+    user_command = menu_input()
+    while user_command == 'h':
+        print_bnc_help()
+        user_command = menu_input()
+    if user_command == 'q':
+        sys.exit()
+    else:
+        print('Starting new Game! Good luck!')
+        game()
 
+
+def print_menu_info():
+    print("Commands:\n \'n\' for new game, \n \'h\' for help\n \'q\' to quit")
+
+
+def menu_input():
+    print_menu_info()
+    inpt = input(">> ")
+    while not correct_menu_inpt(inpt):
+        inpt = input("Unknown command! Try again!\n>> ")
+    return inpt.lower()
+
+
+def correct_menu_inpt(inpt):
+    return inpt in ('n', 'N', 'h', 'H', 'q', 'Q')
+
+
+def print_bnc_help():
+    print("\nHOW TO PLAY!\n"
+          "Your objective is to find a 4-digit computer generated secret number.\n"
+          "All of the numbers digits are unique.\n"
+          "In each turn you input a number.\n"
+          "You hit Bull, if digits are on it\'s right position,\n"
+          "Cow, if the digitss are in different positions\n")
+
+
+def bulls_n_cows():
+    menu()
+
+
+bulls_n_cows()
