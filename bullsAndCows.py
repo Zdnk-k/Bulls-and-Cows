@@ -52,7 +52,7 @@ def check_digits(number):
     """
     checks whether the number consists of 4 different digits
     """
-    used_digits = set(number)   # creates set from string
+    used_digits = set(number)   # converts string to set
     return len(used_digits) == 4    # checks if the set has 4 elements
 
 
@@ -139,35 +139,41 @@ def game():
 
 
 def menu():
+    """game start menu"""
     print("Welcome to Bulls \'n Cows game!\n")
     user_command = menu_input()
-    while user_command == 'h':
+    while user_command == 'h':  # prints help
         print_bnc_help()
         user_command = menu_input()
-    if user_command == 'q':
+    if user_command == 'q':  # quit program
         sys.exit()
     else:
         print('Starting new Game! Good luck!')
-        game()
+        game()  # starts game
 
 
-def print_menu_info():
+def print_menu_commands():
+    """prints menu commands"""
     print("Commands:\n \'n\' for new game, \n \'h\' for help\n \'q\' to quit")
 
 
 def menu_input():
-    print_menu_info()
+    """takes and checks menu input """
+    print_menu_commands()
     inpt = input(">> ")
     while not correct_menu_inpt(inpt):
+        print_menu_commands()
         inpt = input("Unknown command! Try again!\n>> ")
     return inpt.lower()
 
 
 def correct_menu_inpt(inpt):
+    """checks if correct input"""
     return inpt in ('n', 'N', 'h', 'H', 'q', 'Q')
 
 
 def print_bnc_help():
+    """prints help"""
     print("\nHOW TO PLAY!\n"
           "Your objective is to find a 4-digit computer generated secret number.\n"
           "All of the numbers digits are unique.\n"
@@ -177,6 +183,7 @@ def print_bnc_help():
 
 
 def bulls_n_cows():
+    """runs the game"""
     menu()
 
 
