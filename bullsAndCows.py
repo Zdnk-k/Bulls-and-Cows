@@ -9,7 +9,7 @@ import sys
 
 def get_number():
     """ Returns a number to guess """
-    digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]  # list of digits to choose from
+    digits = [x for x in range(10)]  # list of digits to choose from
     digit = randint(1, 9)  # choose first  digit
     number = digit
     digits.remove(digit)
