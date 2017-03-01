@@ -135,7 +135,7 @@ def game():
     while next_round:
         round()
         next_round = wanna_play()
-    sys.exit()
+    exit()
 
 
 def menu():
@@ -146,7 +146,7 @@ def menu():
         print_bnc_help()
         user_command = menu_input()
     if user_command == 'q':  # quit program
-        sys.exit()
+        exit()
     else:
         print('Starting new Game! Good luck!')
         game()  # starts game
